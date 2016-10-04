@@ -67,8 +67,8 @@ class Form1(wx.Panel):
         self.SPECENDVAL = wx.TextCtrl(self, 20, "15000.0", wx.Point(160, 110), wx.Size(120,-1))
         self.R = wx.StaticText(self, -1, "Resolving power:",wx.Point(20,140))
         self.RVALUE = wx.TextCtrl(self, 20, "1000", wx.Point(160, 140), wx.Size(120,-1))
-        self.FUNITS=wx.StaticText(self, -1, "FUNITS:",wx.Point(20,170))
-        self.FUNITSVALUE = wx.Choice(self, -1, wx.Point(100,170),choices=['J/s/m2/A/arcsec2','erg/s/cm2/A/arcsec2'])
+        #self.FUNITS=wx.StaticText(self, -1, "FUNITS:",wx.Point(20,170))
+        #self.FUNITSVALUE = wx.Choice(self, -1, wx.Point(100,170),choices=['J/s/m2/A/arcsec2','erg/s/cm2/A/arcsec2'])
         self.HRFACTOR = wx.StaticText(self, -1, "HRFACTOR:",wx.Point(20,200))
         self.HRFACTORVALUE = wx.TextCtrl(self, 60, "1", wx.Point(160,200), wx.Size(120,-1))
         self.NAME = wx.StaticText(self, -1, "File Name: ",wx.Point(20,230))
@@ -88,12 +88,12 @@ class Form1(wx.Panel):
         self.ZVALUE = wx.TextCtrl(self, 20, "0.1", wx.Point(450, 110), wx.Size(100,-1))
         self.MAG = wx.StaticText(self, -1, "AB Mag:",wx.Point(300,170))
         self.MAGVALUE = wx.TextCtrl(self, 20, "20.0", wx.Point(450, 170), wx.Size(100,-1))
-        self.BAND = wx.StaticText(self, -1, "Band:",wx.Point(300,180))
+        self.BAND = wx.StaticText(self, -1, "Band:",wx.Point(300,200))
         self.BANDVALUE = wx.Choice(self, wx.ID_ANY, wx.Point(450,200),
                                       choices=['V', 'R', 'I', 'z', 'J', 'H', 'K',
                                                'L', 'M'])
-        self.SPECTRA = wx.StaticText(self, -1, "Spectrum Type:", wx.Point(300,200))
-        self.SPECTRAVALUE = wx.Choice(self, wx.ID_ANY, wx.Point(430,200),
+        self.SPECTRA = wx.StaticText(self, -1, "Spectrum Type:", wx.Point(300,230))
+        self.SPECTRAVALUE = wx.Choice(self, wx.ID_ANY, wx.Point(430,230),
                                       choices=['Flat','Emission','Absorption','O5V',
                                                'O9V','B0V','B3V','B9V','A0V','A3V',
                                                'A5V','F0V','F2V','F5V','G0V','G2V',
@@ -108,7 +108,7 @@ class Form1(wx.Panel):
         self.GAUSSWAVEVALUE = wx.TextCtrl(self, 20, "0.", wx.Point(730, 170), wx.Size(80,-1))
         self.GAUSSWIDTH = wx.StaticText(self, -1, "Width [km/s]:",wx.Point(580,200))
         self.GAUSSWIDTHVALUE = wx.TextCtrl(self, 20, "20.", wx.Point(730, 200), wx.Size(80,-1))
-        self.GAUSSFLUX = wx.StaticText(self, -1, "Integrated flux [erg/s/cm2]:",wx.Point(580,230))
+        self.GAUSSFLUX = wx.StaticText(self, -1, "Total flux [erg/s/cm2]:",wx.Point(580,230))
         self.GAUSSFLUXVALUE = wx.TextCtrl(self, 20, "1e-16", wx.Point(730, 230), wx.Size(80,-1))
 
         #Misc parameters:
@@ -145,7 +145,7 @@ class Form1(wx.Panel):
         crval3=float(self.CRVAL3VALUE.GetValue())
         specend=float(self.SPECENDVAL.GetValue())
         R=float(self.RVALUE.GetValue())
-        funits=str(self.FUNITSVALUE.GetStringSelection())
+        #funits=str(self.FUNITSVALUE.GetStringSelection())
         hrfac=float(self.HRFACTORVALUE.GetValue())
 
         #Extract model parameters
@@ -176,6 +176,7 @@ class Form1(wx.Panel):
         ctype2 = 'DEC'           #CTYPE2
         ctype3 = 'WAVELENGTH'    #CTYPE3
         specr = R                #RPOWER
+        funits = 'erg/s/cm2/A/arcsec2/'
 
         #collect parameters into lists
         headerdata = [cdelt1, cdelt2, crval3, specend, R, funits,

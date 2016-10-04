@@ -70,9 +70,7 @@ def main(headerdata, modeldata, userspec=None, userres=None):
 
         #---  Scale the cube to the correct units  ---#
         if spec_type!='Emission':
-        mr.rescale(datacube, mag, band)      
-        # elif spec_type=='Emission':
-        #     pass
+            mr.rescale(datacube, mag, band)      
 
     #---  Create data cube  ---#
     spaxels = [xspaxels, yspaxels]
@@ -106,6 +104,6 @@ def main(headerdata, modeldata, userspec=None, userres=None):
     #---  Print FITS info and plot data  ---#
     print hdulist.info()
     print hdulist[0].header
-    pritn ''
+    print ''
     print 'Cube generation complete!'
     print ''

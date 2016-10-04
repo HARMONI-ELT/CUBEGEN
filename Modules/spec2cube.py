@@ -46,8 +46,13 @@ def userSpec(fname, specres, outfile='harmoni_cube.fits'):
 
     try:
         data = n.genfromtxt(fname)
-    try:
-        data = n.genfromtxt(fname, delimiter=',')
+        try:
+            data = n.genfromtxt(fname, delimiter=',')
+        except:
+            print 'Cannot figure out delimiter!'
+            print 'Use either single space of comma-separated values'
+            print ''
+            sys.exit()
     except:
         print 'Cannot figure out delimiter!'
         print 'Use either single space of comma-separated values'
