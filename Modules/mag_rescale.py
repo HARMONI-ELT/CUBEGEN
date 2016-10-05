@@ -14,7 +14,7 @@ import SimpleNumericalCalculus as SNC
 
 
 #------------#
-def rescale(datacube, mag, band, Lamba_0, method='one'):
+def rescale(datacube, mag, band, Lambda_0, method='one'):
     '''Scales the flux correctly to match the provided magnitude.
 
     =========================== Input ==============================
@@ -42,23 +42,23 @@ def rescale(datacube, mag, band, Lamba_0, method='one'):
 
     ## Method 1
     if method=='one':
-    #Desired flux from AB magnitude [ergs/s/cm2/Hz]
-    desired_flux=np.power(10., -(mag+48.57)/2.5)
-    #Current flux of spectrum
-    spec_flux=np.sum(np.sum(datacube,axis=1),axis=1)[-1]
-    #Desired flux from AB magnitude [erg/s/cm2/A]
-    desired_flux*=3.E18/(lambda_0**2)
-    #Scale to match desiered flux [erg/s/cm2/A]
-    datacube*=desired_flux/spec_flux
+        #Desired flux from AB magnitude [ergs/s/cm2/Hz]
+        desired_flux=np.power(10., -(mag+48.57)/2.5)
+        #Current flux of spectrum
+        spec_flux=np.sum(np.sum(datacube,axis=1),axis=1)[-1]
+        #Desired flux from AB magnitude [erg/s/cm2/A]
+        desired_flux*=3.E18/(Lambda_0**2)
+        #Scale to match desiered flux [erg/s/cm2/A]
+        datacube*=desired_flux/spec_flux
 
-    # ## Method 2
-    # elif method=='two':
-    # #Current flux of spectrum
-    # spec_flux=np.sum(np.sum(datacube,axis=1),axis=1)[-1]
-    # #Desired flux from AB magnitude [erg/s/cm2/A]
-    # desired_flux = flux_zeropoint*10.**(mag/-2.5)
-    # #Scale to match desiered flux [erg/s/cm2/A]
-    # datacube*=desired_flux/spec_flux
+    ## Method 2
+    elif method=='two':
+        #Current flux of spectrum
+        spec_flux=np.sum(np.sum(datacube,axis=1),axis=1)[-1]
+        #Desired flux from AB magnitude [erg/s/cm2/A]
+        desired_flux = flux_zeropoint*10.**(mag/-2.5)
+        #Scale to match desiered flux [erg/s/cm2/A]
+        datacube*=desired_flux/spec_flux
 
     else:
         print "Choose either method 'one', or 'two'"

@@ -1,11 +1,18 @@
-'''Module to initialise a test datacube for running through the E-ELT/EAGLE
-   simulator.
+'''
 
-   By Nicholas Zieleniewski of Durham University, October 09.'''
+Module to initialise a test datacube for running through the HSIM/NIFSIM
+simulators
+
+Authors: Nicholas Zieleniewski & Simon Zieleniewski
+
+Last updated: 05-10-16
+   
+'''
 
 #import
 import numpy as np
 
+#------------#
 def datacube(spaxels, spectrum):
     '''Initialses a datacube (3D numpy array) containing a mock lyman
        alpha break spectra for each spaxel. Each spectra has a spectral
@@ -26,8 +33,9 @@ def datacube(spaxels, spectrum):
     datacube[:,:,:]=spectrum               #Fill all points on spaxel grid with the spectrum
     spectrum.shape=a                       #Return to old shape
     return datacube
+#------------#
 
-
+#------------#
 def Tesselate(datacube, spaxels, grid):
     '''Initialses a datacube (3D numpy array) containing a mock lyman
        alpha break spectra for each spaxel. Each spectra has a spectral
@@ -67,5 +75,15 @@ def Tesselate(datacube, spaxels, grid):
                 
     #Return tesselated datacube
     return newcube
+#------------#
 
+#------------#
+def path_setup(path):
+    '''function to setup paths to datafiles'''
+    import os
+    script_dir = os.path.split(os.path.abspath(__file__))[0]
+    out_path = os.path.join(script_dir, os.path.relpath(path),'')
+
+    return out_path
+#------------#
     

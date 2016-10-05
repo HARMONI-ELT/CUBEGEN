@@ -4,7 +4,7 @@ spectrums for use in the EAGLE simulator.
 Author: Nicholas Zieleniewski, Simon Zieleniewski
 
 
-Last updated: 04-10-16
+Last updated: 05-10-16
 
 '''
 
@@ -38,7 +38,7 @@ def initalise_spec(spec_type, wavelengths, z, linewave, linewidth, lineflux):
         new_spec = interp_spec(wavelengths)
 
     elif spec_type in lbgs:
-        spectrum, head = p.getdata('.Simul_spectra/lyman_alpha_spectra/'+spec_type+'.fits', header=True)
+        spectrum, head = p.getdata('./Simul_spectra/lyman_alpha_spectra/'+spec_type+'.fits', header=True)
         spectrum /= np.median(spectrum)
         lams = np.linspace(head['CRVAL1'], head['CRVAL1'] + (head['NAXIS1']-1)*head['CDELT1'], head['NAXIS1'])
         #Apply redshift correction

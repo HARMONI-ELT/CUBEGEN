@@ -12,6 +12,7 @@ import numpy as np
 import astropy.io.fits as pf
 import time as time
 import wx
+import sys
 #Import custom modules
 import header_format as hf
 import datacube_init as dc
@@ -23,7 +24,7 @@ import mag_rescale as mr
 import spec2cube as s2c
 
 
-def main(headerdata, modeldata, userspec=None, userres=None):
+def main(headerdata, modeldata, userspec=None, userres=None, outdir=None):
     '''Define the parameters needed in the header of the FITS file, as well
        as gathering the spectrum data.
        
@@ -42,19 +43,23 @@ def main(headerdata, modeldata, userspec=None, userres=None):
 
     #---  HSIM header values  ---#
     CDELT1, CDELT2, CRVAL3, MAXWAVE, R, FUNITS, CRPIX3, CUNIT1,\
-    CUNIT2, CUNIT3, CTYPE1, CTYPE2, CTYPE3, HRFAC = headerdata
+    CUNIT2, CUNIT3, CTYPE1, CTYPE2, CTYPE3 = headerdata
 
     #---  HSIM cube parameters  ---#
     numgal, xspaxels, yspaxels, otype, z, mag, band, pixsep, fac, spec_type, \
     gauss_wave, gauss_width, gauss_flux, centre, grid, name, k, n = modeldata
 
-    if userspec!=None and userres==None:
-        print 'Must supply value for spectral resolution [A] when supplying input spectrum file'
+    print 'userspec = ', userspec
+    print 'TYPE(userspec) = ', type(userspec)
+    print 'userres = ', userres
+    print 'TYPE(userres) = ', type(userres)
+    if userspec!='None' and userres==0:
+        print 'Must supply (positive) value for spectral resolution [A] when supplying input spectrum file'
         sys.exit()
-    elif userres!=None and userspec==None:
-        print 'Must supply spectrum data file (wavelength[A], flux[erg/a/cm2/A]) if supplying resolution value [A]'
+    elif userres=='None' and userspec!=0:
+        print 'Must supply spectrum datafile (wavelength[A], flux[erg/a/cm2/A]) if supplying resolution value [A]'
         sys.exit()
-    elif userspec!=None and userres!=None:
+    elif userspec!='None' and userres!=0:
         spectrum, Lambda_0, CRVAL3, delta_lambda = s2c.userSpec(userspec)
         SPECRES = userres
         R = Lambda_0/float(SPECRES)
@@ -66,15 +71,15 @@ def main(headerdata, modeldata, userspec=None, userres=None):
         delta_lambda=Lambda_0/(2.*R)
         SPECRES = delta_lambda*2.
         wavelengths=np.arange(CRVAL3,MAXWAVE+(delta_lambda/2.),delta_lambda)  #Wavelength values [Angstroms]
-        spectrum=sp.initalise_spec(spec_type, wavelengths, z, gauss_wave, gauss_width, gauss_flux)   #Get spectrum
-
-        #---  Scale the cube to the correct units  ---#
-        if spec_type!='Emission':
-            mr.rescale(datacube, mag, band, Lambda_0, 'one')      
+        spectrum=sp.initalise_spec(spec_type, wavelengths, z, gauss_wave, gauss_width, gauss_flux)   #Get spectrum   
 
     #---  Create data cube  ---#
     spaxels = [xspaxels, yspaxels]
     datacube=dc.datacube(spaxels, spectrum)
+
+    #---  Scale the cube to the correct units  ---#
+    if userspec=='None' and spec_type!='Emission':
+        mr.rescale(datacube, mag, band, Lambda_0, 'one')
 
     #---  Apply relevant intensity profile and scale flux  ---#
     spans = [CDELT1*xspaxels, CDELT2*yspaxels]
@@ -99,7 +104,7 @@ def main(headerdata, modeldata, userspec=None, userres=None):
                       ('NSersic', n)]
     hdulist = hf.make_hdulist(datacube, values, optionalkey_vals)
     #Save the file
-    hdulist.writeto('Generated_Cubes/'+name+'.fits', clobber=True, output_verify='ignore')
+    hdulist.writeto(outdir+name+'.fits', clobber=True, output_verify='ignore')
 
     #---  Print FITS info and plot data  ---#
     print hdulist.info()
