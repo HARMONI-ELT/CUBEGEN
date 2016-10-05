@@ -3,7 +3,7 @@ pipeline.
 
 Author: Simon Zieleniewski & Nicholas Zieleniewski
 
-Last updated: 04-10-16
+Last updated: 05-10-16
 
 '''
 
@@ -70,7 +70,7 @@ def main(headerdata, modeldata, userspec=None, userres=None):
 
         #---  Scale the cube to the correct units  ---#
         if spec_type!='Emission':
-            mr.rescale(datacube, mag, band)      
+            mr.rescale(datacube, mag, band, Lambda_0, 'one')      
 
     #---  Create data cube  ---#
     spaxels = [xspaxels, yspaxels]

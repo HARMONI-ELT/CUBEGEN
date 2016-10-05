@@ -3,7 +3,7 @@ correctly model the desired AB magnitude, at the reference wavelength.
 
 Author: Nicholas Zieleniewski, Simon Zieleniewski
 
-Last updated: 15-04-16
+Last updated: 05-10-16
 
 '''
 
@@ -14,7 +14,7 @@ import SimpleNumericalCalculus as SNC
 
 
 #------------#
-def rescale(datacube, mag, band):
+def rescale(datacube, mag, band, Lamba_0, method='one'):
     '''Scales the flux correctly to match the provided magnitude.
 
     =========================== Input ==============================
@@ -26,7 +26,7 @@ def rescale(datacube, mag, band):
     ============================ Out ===============================
     datacube       - Datacube modified in place.'''
 
-    bands = ['V', 'R', 'I', 'J', 'H', 'K', 'L', 'M']
+    #Flux zeropoints [erg/s/cm2/A] from E-ELT ETC document
     B_zp = 5.623413251903491e-09
     V_zp = 3.6307805477010106e-09
     R_zp = 2.6302679918953816e-09
@@ -36,11 +36,33 @@ def rescale(datacube, mag, band):
     K_zp = 2.29086765276777e-10
     L_zp = 9.120108393559117e-11
     M_zp = 4.7863009232263794e-11
+    bands = ['V', 'R', 'I', 'J', 'H', 'K', 'L', 'M']
     ZPs = [B_zp, V_zp, R_zp, I_zp, J_zp, H_zp, K_zp, L_zp, M_zp]
-
     flux_zeropoint = ZPs[bands.index(band)]
 
-    datacube *= (flux_zeropoint)
+    ## Method 1
+    if method=='one':
+    #Desired flux from AB magnitude [ergs/s/cm2/Hz]
+    desired_flux=np.power(10., -(mag+48.57)/2.5)
+    #Current flux of spectrum
+    spec_flux=np.sum(np.sum(datacube,axis=1),axis=1)[-1]
+    #Desired flux from AB magnitude [erg/s/cm2/A]
+    desired_flux*=3.E18/(lambda_0**2)
+    #Scale to match desiered flux [erg/s/cm2/A]
+    datacube*=desired_flux/spec_flux
+
+    # ## Method 2
+    # elif method=='two':
+    # #Current flux of spectrum
+    # spec_flux=np.sum(np.sum(datacube,axis=1),axis=1)[-1]
+    # #Desired flux from AB magnitude [erg/s/cm2/A]
+    # desired_flux = flux_zeropoint*10.**(mag/-2.5)
+    # #Scale to match desiered flux [erg/s/cm2/A]
+    # datacube*=desired_flux/spec_flux
+
+    else:
+        print "Choose either method 'one', or 'two'"
+        sys.exit()
 #------------#
 
 
