@@ -1,8 +1,14 @@
-'''Module containing intensity profile functions that may be applied
+'''
+
+Module containing intensity profile functions that may be applied
 to given data cubes in order to simulate varying surface brightness
 of imaged galaxies.
 
-by Nicholas Zieleniewski of Durham University.'''
+Author: Nicholas Zieleniewski & Simon Zieleniewski
+
+Last updated: 06-10-16
+
+'''
 
 import numpy as np
 
@@ -10,12 +16,12 @@ def initialise(numgal, otype, datacube, spaxdists, sep, fac, grid, k, n):
     '''Given the int numgal, the correct intensity profile
        is applied to the datacube inplace'''
     if numgal==1:
-        print 'DATACUBE SHAPE', datacube.shape
+        print 'DATACUBE SHAPE (Lambda, Y, X)', datacube.shape
         datacube*=I_profile(spaxdists, otype, k, n)
     elif numgal==2:
         datacube*=double_gal(spaxdists, otype, sep, fac, grid, k, n)
     elif numgal!=1 and numgal!=2:
-        print 'ERROR - unsupported number of objects'
+        print 'ERROR - unsupported number of objects. Choose either 1 or 2'
 
 
 def I_profile(r, otype, k, n):
@@ -34,13 +40,13 @@ def I_profile(r, otype, k, n):
                     results from using r values.'''
     if otype=='Point':
         x = np.where(r==r.min())
-        print x
+        # print x
         r = np.where(r==r.min(), 1., 0.)
-#        r[x[0]-1,x[1]-1] = 1.
-#        r[x[0]-1,x[1]] = 1.
-#        r[x[0],x[1]-1] = 1.
-#        r *= 0.25
-        print r[x[0]-2:x[0]+3,x[1]-2:x[1]+3]
+        # r[x[0]-1,x[1]-1] = 1.
+        # r[x[0]-1,x[1]] = 1.
+        # r[x[0],x[1]-1] = 1.
+        # r *= 0.25
+        # print r[x[0]-2:x[0]+3,x[1]-2:x[1]+3]
         
         return r
     elif otype=='Galaxy':

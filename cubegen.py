@@ -6,7 +6,7 @@ for data cube generation interface for HSIM
 
 Author: Simon Zieleniewski & Nicholas Zieleniewski
 
-Last updated: 05-10-16
+Last updated: 06-10-16
 
 '''
 
@@ -83,7 +83,7 @@ if __name__=="__main__":
             print '5. end_lambda: End wavelength value [A] - enter anything if uploading spectrum'
             print '6. R: Spectral resolving power - enter anything if uploading spectrum'
             print '7. ABmag: AB magnitude - enter anything if uploading spectrum'
-            print '8. band: AB magnitude band [V, R, I, J, H, K, L, M] - enter anything if uploading spectrum'
+            print '8. band: AB magnitude normalisation band [V, R, I, J, H, K, L, M] - enter anything if uploading spectrum'
             print '9. z: Redshift - enter anything if uploading spectrum'
             print '10. spectype: Spectrum type [Flat, Emission, O5V, O9V, B0V, B3V, B9V, A0V, A3V, A5V, F0V, F2V, F5V, G0V, G2V, G5V, K0V, K2V, K5V, K7V, M0V, M2V, M3V, M4V, M5V, M6V, lyaem1, lyaem2, lyaem3, lyaem4]'
             print '11. spaxel_scale: Spaxel box size [mas]'
@@ -135,7 +135,7 @@ if __name__=="__main__":
             grid = 1
 
             #Collect parameters into lists
-            headerdata = [spax, spax, start_lambda, end_lambda, R,
+            headerdata = [spax*1.E-3, spax*1.E-3, start_lambda, end_lambda, R,
             crpix3, cunit1, cunit2, cunit3, ctype1, ctype2, ctype3]
             modeldata = [num_sources, fov, fov, source_type, z, ABmag, band,
             source_sep, brightness_offset, spectype, linewave, linewidth, lineflux, centre, grid,
@@ -206,9 +206,9 @@ if __name__=="__main__":
                     CRVAL3 = wx.StaticText(panel, label="Start lambda [A]:")
                     self.CRVAL3VAL = wx.TextCtrl(panel, value="5000.0")
                     SPECEND=wx.StaticText(panel, label="End lambda [A]:")
-                    self.SPECENDVAL = wx.TextCtrl(panel, value="8000.0")
+                    self.SPECENDVAL = wx.TextCtrl(panel, value="7000.0")
                     R = wx.StaticText(panel, label="Resolving power:")
-                    self.RVAL = wx.TextCtrl(panel, value="1000")
+                    self.RVAL = wx.TextCtrl(panel, value="4000")
                     MAG = wx.StaticText(panel, label="AB Mag:")
                     self.MAGVAL = wx.TextCtrl(panel, value="20.0")
                     BAND = wx.StaticText(panel, label="Band:")
@@ -290,7 +290,7 @@ if __name__=="__main__":
                     DIR = wx.StaticText(panel, label='Output Directory')
                     DIR.SetFont(subtitlefont)
                     gapdir = wx.StaticText(panel, label=' ')
-                    self.DIRVAL = wx.DirPickerCtrl(panel, path=path_setup('../Output_cubes/'))
+                    self.DIRVAL = wx.DirPickerCtrl(panel, path=path_setup('../Generated_Cubes/'))
                     NAME = wx.StaticText(panel, label="File Name")
                     NAME.SetFont(subtitlefont)
                     gapname = wx.StaticText(panel, label=' ')
@@ -354,7 +354,7 @@ if __name__=="__main__":
                     funits = 'erg/s/cm2/A/arcsec2/'
                     centre = 1
                     grid = 1
-                    headerdata = [cdelt1, cdelt1, crval3, specend, R,
+                    headerdata = [cdelt1*1.E-3, cdelt1*1.E-3, crval3, specend, R,
                     funits, crpix3, cunit1, cunit2, cunit3, ctype1, ctype2, ctype3]
                     modeldata = [numgal, fov, fov, source_type, zval, ABmag, bandval,
                     source_sep, brightness_offset, spectype, linewave, linewidth, lineflux, centre, grid,

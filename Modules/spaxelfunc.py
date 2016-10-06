@@ -1,7 +1,13 @@
-'''Module containing a function that creates a 2D array with elements storing
+'''
+
+Module containing a function that creates a 2D array with elements storing
 the distance they are from the 'centre' of the array.
 
-by Nicholas Zieleniewski of Durham University.'''
+Author: Nicholas Zieleniewski
+
+Last updated: 06-10-16
+
+'''
 
 import numpy as np
 

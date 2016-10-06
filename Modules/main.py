@@ -3,7 +3,7 @@ pipeline.
 
 Author: Simon Zieleniewski & Nicholas Zieleniewski
 
-Last updated: 05-10-16
+Last updated: 06-10-16
 
 '''
 
@@ -13,6 +13,7 @@ import astropy.io.fits as pf
 import time as time
 import wx
 import sys
+import pprint as pp
 #Import custom modules
 import header_format as hf
 import datacube_init as dc
@@ -49,10 +50,6 @@ def main(headerdata, modeldata, userspec=None, userres=None, outdir=None):
     numgal, xspaxels, yspaxels, otype, z, mag, band, pixsep, fac, spec_type, \
     gauss_wave, gauss_width, gauss_flux, centre, grid, name, k, n = modeldata
 
-    print 'userspec = ', userspec
-    print 'TYPE(userspec) = ', type(userspec)
-    print 'userres = ', userres
-    print 'TYPE(userres) = ', type(userres)
     if userspec!='None' and userres==0:
         print 'Must supply (positive) value for spectral resolution [A] when supplying input spectrum file'
         sys.exit()
@@ -107,8 +104,8 @@ def main(headerdata, modeldata, userspec=None, userres=None, outdir=None):
     hdulist.writeto(outdir+name+'.fits', clobber=True, output_verify='ignore')
 
     #---  Print FITS info and plot data  ---#
-    print hdulist.info()
-    print hdulist[0].header
+    pp.pprint(hdulist.info())
+    pp.pprint(hdulist[0].header)
     print ''
     print 'Cube generation complete!'
     print ''

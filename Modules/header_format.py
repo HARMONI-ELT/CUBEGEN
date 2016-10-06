@@ -1,11 +1,15 @@
-'''Module that contains the correct header format for datacubes
-   submitted to the E-ELT/HARMONI Simulator. Also contains a function
-   that updates the Pyfits produced header to contains the relevant
-   keywords and values.
+'''
 
-   By Nicholas Zieleniewski of Durham University
+Module that contains the correct header format for datacubes
+submitted to the E-ELT/HARMONI Simulator. Also contains a function
+that updates the Pyfits produced header to contains the relevant
+keywords and values.
 
-   Keywords correct as of October 09.'''
+Author: Nicholas Zieleniewski and Simon Zieleniewski
+
+Last updated: 06-10-16
+
+'''
 
 
 #Import:
@@ -42,13 +46,13 @@ def make_hdulist(datacube, values, opt_key_vals):
     hdulist=pf.HDUList([hdu])                #Create a list to hold the new HDU
     primhdr=hdulist[0].header                #Get primary header keywords and values/comments
 
-    eaglesim_hdr=keywords()                  #List of neccessary keywords as given in the EAGLE sim documentation
-    eaglesim_hdr=zip(eaglesim_hdr,values)    #list of keywords and values as [[key,val],[key,val]....]
+    sim_hdr=keywords()                  #List of neccessary keywords as given in the EAGLE sim documentation
+    sim_hdr=zip(sim_hdr,values)    #list of keywords and values as [[key,val],[key,val]....]
         
-    for key_val in eaglesim_hdr:             #Update the pimary data cube header with the key words and values
-        primhdr.update(key_val[0], key_val[1])
+    for key_val in sim_hdr:             #Update the pimary data cube header with the key words and values
+        primhdr.set(key_val[0], key_val[1])
 
     for key_val in opt_key_vals:             #Update the pimary data cube header with optional key words and values
-        primhdr.update(key_val[0], key_val[1])  
+        primhdr.set(key_val[0], key_val[1])  
 
     return hdulist                           #Return hdulist
