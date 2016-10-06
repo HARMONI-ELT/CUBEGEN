@@ -1,0 +1,1 @@
+#Data cube FITS are stored in this directory by default
