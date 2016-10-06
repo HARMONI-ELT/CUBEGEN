@@ -5,7 +5,7 @@ Function to generate spectrum from user supplied spectrum data file in format:
 
 Author: Sarah Kendrew & Simon Zieleniewski
 
-Last updated: 04-10-16
+Last updated: 06-10-16
 
 
 '''
@@ -16,9 +16,10 @@ import astropy.io.fits as fits
 import astropy.io.ascii as ascii
 import astropy.units as u
 import os
+import sys
 
 
-def userSpec(fname, specres, outfile='harmoni_cube.fits'):
+def userSpec(fname):
     
     '''This function will take a 1D spectrum and convert it to a cube that can be used as input for the HARMONI Simulator. 
     
@@ -44,20 +45,19 @@ def userSpec(fname, specres, outfile='harmoni_cube.fits'):
     # nspec = len(s['wave'])
     # dwave = np.diff(s['wave'])[0]
 
+    print 'FNAME = ', fname
     try:
-        data = n.genfromtxt(fname)
+        data = np.genfromtxt(fname)
+        print 'DATAFILE SHAPE = ', data.shape
+    except:
         try:
-            data = n.genfromtxt(fname, delimiter=',')
+            data = np.genfromtxt(fname, delimiter=',')
+            print 'DATAFILE SHAPE = ', data.shape
         except:
             print 'Cannot figure out delimiter!'
-            print 'Use either single space of comma-separated values'
+            print 'Use either single space or comma-separated values'
             print ''
             sys.exit()
-    except:
-        print 'Cannot figure out delimiter!'
-        print 'Use either single space of comma-separated values'
-        print ''
-        sys.exit()
     
     waves = data[:,0]
     flux = data[:,1]
