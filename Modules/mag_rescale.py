@@ -3,7 +3,7 @@ correctly model the desired AB magnitude, at the reference wavelength.
 
 Author: Nicholas Zieleniewski, Simon Zieleniewski
 
-Last updated: 05-10-16
+Last updated: 06-10-16
 
 '''
 
@@ -101,6 +101,4 @@ def rescale_flat_AB(datacube, wavelengths, mag):
     mu_flux = 10.**((mag + 48.6)/-2.5) #[erg/s/cm2/Hz]
     lam_flux = mu_flux * ((sc.c*1.E10)/(wavelengths)**2) #[erg/s/cm2/A]
     lam_flux.shape = (len(lam_flux),1,1)
-    print 'DATACUBE SHAPE = ', datacube.shape
-    print 'LAM_FLUX SHAPE = ', lam_flux.shape
     datacube*=lam_flux

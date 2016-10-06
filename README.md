@@ -2,7 +2,7 @@
 
 Written by Simon Zieleniewski & Nicholas Zieleniewski
 
-Last Edited: 03-10-16
+Last Edited: 06-10-16
 
 
 
@@ -79,32 +79,32 @@ to display arguments list
 	
 The commands must be entered in the following order:
 
-1. datacube: Input datacube filepath
-2. DIT: Exposure time [s]
-3. NDIT: No. of exposures
-4. band: Photometric band [V+R, Iz+J, H+K, V, R, Iz, J, H, K, V-high, R-high, z, J-high, H-high, K-high, None]
-5. x-spax: x spatial pixel (spaxel) scale [mas]
-6. y-spax: y spatial pixel (spaxel) scale [mas]
-7. telescope: Telescope type (E-ELT, VLT)
-8. AO: AO mode (LTAO, SCAO, Gaussian)
-9. seeing: Atmospheric seeing FWHM [arcsec] - Between 0.67"-1.10"
-10. zenith_ang: Zenith angle [deg]
-11. user_PSF: Path to user uploaded PSF file - Enter None if not required
-12. PSF blur: Additional telescope jitter [mas]
-13. Site_temp: Site/telescope temperature [K]
-14. Spec_Nyquist: (True/False) - Set spectral sampling to Nyquist sample spectral resolution element
-15. Spec_samp: Spectral sampling [A/pix] - Only used if Spec_Nyquist = False, but enter a value regardless!
-16. Noise_force_seed: Force random number seed to take a set value (0=No, 1-2=yes and takes that value)
-17. Remove_background: (True/False) - Subtract background spectrum
-18. Return_object: (True/False) - Return object cube
-19. Return_transmission: (True/False) - Return transmission cube
-20. Turn ADR off: (True/False)
+1. cubename: Output data cube file name
+2. userspec: Path to input spectrum datafile (wavelength[A], flux[erg/s/cm2/A]) - enter None if not using
+3. userres: Resolution element of user spectrum [A] - enter 0 if not using
+4. start_lambda: Start wavelength value [A] - enter anything if uploading spectrum
+5. end_lambda: End wavelength value [A] - enter anything if uploading spectrum
+6. R: Spectral resolving power - enter anything if uploading spectrum
+7. ABmag: AB magnitude - enter anything if uploading spectrum
+8. band: AB magnitude normalisation band [V, R, I, J, H, K, L, M] - enter anything if uploading spectrum
+9. z: Redshift - enter anything if uploading spectrum'
+10. spectype: Spectrum type [Flat, Emission, O5V, O9V, B0V, B3V, B9V, A0V, A3V, A5V, F0V, F2V, F5V, G0V, G2V, G5V, K0V, K2V, K5V, K7V, M0V, M2V, M3V, M4V, M5V, M6V, lyaem1, lyaem2, lyaem3, lyaem4]
+11. spaxel_scale: Spaxel box size [mas]
+12. fov: Field of view: [spaxels]
+13. source_type: Source type [Point, Galaxy(=Sersic)]
+14. num_sources: No. of sources [1,2]
+15. source_sep: Separation of sources (if two) [spaxels] - enter value regardless!
+16. sersic_k: Sersic k parameter - enter value regardless!
+17. sersic_n: Sersic n parameter - enter value regardless!
+18. brightness_ratio: Brightness ratio between two sources - enter value regardless!
+19. linewave: Emission line central wavelength [A] - enter value regardless!
+20. linewidth: Emission line width [km/s] - enter value regardless!
+21. lineflux: Emission line total flux [erg/s/cm2] - enter value regardless!
 
 Use -h or --help to display help message and exit
 Use -c or --cline option to use command line.
 Use -o or --odir when using command line to specify output file directory. Default is /hsim/Output_cubes/
-Use -p or --proc when using command line to specify number of cores for parallel processing. Default is N_PROC-1 (if N_PROC>1)
 
 An example command line entry:
-$ python cubegen.py -c -p 5 -o /Path/to/output_dir/ /Path/to/Input_cubes/Input_cube.fits 900 20 H+K 20. 20. E-ELT LTAO 0.67 0. None 0. 280.5 True 1. 0 True True True
+$ python cubegen.py -c -o New_datacube None 0 5000 7000 4000 20 V 0 Flat 1 500 Galaxy 2 100 1 4 1.5 0 0 0
 
