@@ -84,3 +84,23 @@ def rescale_gauss(datacube, lambda_0, gauss_flux, delta_lambda):
     integrated_flux=SNC.int_simp(spectra, delta_lambda)
     datacube*=gauss_flux/integrated_flux
 #------------#
+
+
+#------------#
+def rescale_flat_AB(datacube, wavelengths, mag):
+    '''Scales the flux correctly to match the provided magnitude.
+
+    =========================== Input ==============================
+    datacube       - 3D numpy array, storing a spectrum (dimesion 0)
+                     for each spatial element.
+    wavelengths    - 1D numpy array of wavelengths [angstroms]
+    mag            - Float, AB magnitude, unitless. Desiried magnitude
+                     of galaxy.
+    ============================ Out ===============================
+    datacube       - Datacube modified in place.'''
+    mu_flux = 10.**((mag + 48.6)/-2.5) #[erg/s/cm2/Hz]
+    lam_flux = mu_flux * ((sc.c*1.E10)/(wavelengths)**2) #[erg/s/cm2/A]
+    lam_flux.shape = (len(lam_flux),1,1)
+    print 'DATACUBE SHAPE = ', datacube.shape
+    print 'LAM_FLUX SHAPE = ', lam_flux.shape
+    datacube*=lam_flux

@@ -75,8 +75,12 @@ def main(headerdata, modeldata, userspec=None, userres=None, outdir=None):
     datacube=dc.datacube(spaxels, spectrum)
 
     #---  Scale the cube to the correct units  ---#
-    if userspec=='None' and spec_type!='Emission':
+    if userspec=='None' and spec_type not in ['Flat', 'Emission']:
+        print 'Rescaling stellar spectrum to ABmag = %.1f in ' % mag, band+ ' band'
         mr.rescale(datacube, mag, band, Lambda_0, 'one')
+    elif userspec=='None' and spec_type=='Flat':
+        print 'Rescaling Flat (ABmag) spectrum to ABmag = %.1f in ' % mag, band+ ' band'
+        mr.rescale_flat_AB(datacube, wavelengths, mag)
 
     #---  Apply relevant intensity profile and scale flux  ---#
     spans = [CDELT1*xspaxels, CDELT2*yspaxels]

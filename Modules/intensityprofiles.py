@@ -16,7 +16,7 @@ def initialise(numgal, otype, datacube, spaxdists, sep, fac, grid, k, n):
     '''Given the int numgal, the correct intensity profile
        is applied to the datacube inplace'''
     if numgal==1:
-        print 'DATACUBE SHAPE (Lambda, Y, X)', datacube.shape
+        print 'DATACUBE SHAPE (Lambda, Y, X) = ', datacube.shape
         datacube*=I_profile(spaxdists, otype, k, n)
     elif numgal==2:
         datacube*=double_gal(spaxdists, otype, sep, fac, grid, k, n)

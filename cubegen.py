@@ -49,7 +49,7 @@ if __name__=="__main__":
             print '-h or --help = display this message and exit'
             print '-c or --cline = use command line. Use: >>> python cubegen.py -c to display arguments list'
             #print '-p or --proc = set the number of processors when using command line (1-'+str(mp.cpu_count())+')'
-            print '-o or --odir = set the output file directory when using the command line (default: /hsim-#/Output_cubes)'
+            print '-o or --odir = set the output file directory when using the command line (default: /CUBEGEN/Generated_Cubes/)'
             print""
             sys.exit()
 

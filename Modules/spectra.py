@@ -1,10 +1,12 @@
-'''Module containing functions that return various different galaxy
-spectrums for use in the EAGLE simulator.
+'''
+
+Module containing functions that return various different
+template spectra for use in the HSIM/NIFSIM simulators
 
 Author: Nicholas Zieleniewski, Simon Zieleniewski
 
 
-Last updated: 05-10-16
+Last updated: 06-10-16
 
 '''
 
@@ -55,7 +57,6 @@ def initalise_spec(spec_type, wavelengths, z, linewave, linewidth, lineflux):
     elif spec_type=='Emission':
         new_spec = Gauss(wavelengths, z, linewave, linewidth, lineflux)
 
-    #Placeholder!
     elif spec_type=='Flat':
         new_spec = np.ones(len(wavelengths), dtype=np.float64)
 
