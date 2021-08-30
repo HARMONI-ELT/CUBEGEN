@@ -77,7 +77,7 @@ if __name__=="__main__":
             print ""
             print 'Enter command line arguments in following order:'
             print '1. cubename: Output data cube file name'
-            print '2. userspec: Path to input spectrum datafile (wavelength[A], flux[erg/s/cm2/A]) - enter None if not using'
+            print '2. userspec: Path to input spectrum datafile (wavelength[A], flux[erg/s/cm2/AA]) - enter None if not using'
             print '3. userres: Resolution element of user spectrum [A] - enter None if not using'
             print '4. start_lambda: Start wavelength value [A] - enter anything if uploading spectrum'
             print '5. end_lambda: End wavelength value [A] - enter anything if uploading spectrum'
@@ -125,12 +125,12 @@ if __name__=="__main__":
             crpix3 = 1               #CRPIX1
             cunit1 = 'mas'           #CUNIT1
             cunit2 = 'mas'           #CUNIT2
-            cunit3 = 'angstroms'     #CUNIT3
+            cunit3 = 'angstrom'     #CUNIT3
             ctype1 = 'RA'            #CTYPE1
             ctype2 = 'DEC'           #CTYPE2
             ctype3 = 'WAVELENGTH'    #CTYPE3
             specr = R                #RPOWER
-            funits = 'erg/s/cm2/A/arcsec2/'
+            funits = 'erg/s/cm2/AA/arcsec2'
             centre = 1
             grid = 1
 
@@ -312,7 +312,7 @@ if __name__=="__main__":
                     panel.SetSizer(hbox)
 
                     # A button
-                    button =wx.Button(panel, 10, "Generate Cube", wx.Point(475, 340))
+                    button =wx.Button(panel, 10, "Generate Cube", wx.Point(475, 440))
                     wx.EVT_BUTTON(panel, 10, self.OnClick)
 
                 def OnClick(self,event):
@@ -346,12 +346,12 @@ if __name__=="__main__":
                     crpix3 = 1               #CRPIX1
                     cunit1 = 'mas'           #CUNIT1
                     cunit2 = 'mas'           #CUNIT2
-                    cunit3 = 'angstroms'     #CUNIT3
+                    cunit3 = 'angstrom'     #CUNIT3
                     ctype1 = 'RA'            #CTYPE1
                     ctype2 = 'DEC'           #CTYPE2
                     ctype3 = 'WAVELENGTH'    #CTYPE3
                     specr = R                #RPOWER
-                    funits = 'erg/s/cm2/A/arcsec2/'
+                    funits = 'erg/s/cm2/AA/arcsec2'
                     centre = 1
                     grid = 1
                     headerdata = [cdelt1*1.E-3, cdelt1*1.E-3, crval3, specend, R,

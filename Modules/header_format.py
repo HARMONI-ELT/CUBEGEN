@@ -20,7 +20,7 @@ def keywords():
     '''Just a function to contain the keys needed for the HARMONI simulator'''
     
     keywords=['NAXIS1', 'NAXIS2', 'NAXIS3', 'CDELT1', 'CDELT2',\
-              'CDELT3', 'CRVAL3', 'FUNITS', 'CRPIX3', 'CUNIT1',\
+              'CDELT3', 'CRVAL3', 'BUNIT', 'CRPIX3', 'CUNIT1',\
               'CUNIT2', 'CUNIT3', 'CTYPE1', 'CTYPE2', 'CTYPE3',\
               'SPECRES']
     return keywords

@@ -43,7 +43,7 @@ def main(headerdata, modeldata, userspec=None, userres=None, outdir=None):
        '''
 
     #---  HSIM header values  ---#
-    CDELT1, CDELT2, CRVAL3, MAXWAVE, R, FUNITS, CRPIX3, CUNIT1,\
+    CDELT1, CDELT2, CRVAL3, MAXWAVE, R, BUNIT, CRPIX3, CUNIT1,\
     CUNIT2, CUNIT3, CTYPE1, CTYPE2, CTYPE3 = headerdata
 
     #---  HSIM cube parameters  ---#
@@ -95,7 +95,7 @@ def main(headerdata, modeldata, userspec=None, userres=None, outdir=None):
 
     #---  Get HSIM/NIFSIM friendly hdu(list)  ---#
     values=[datacube.shape[2], datacube.shape[1], datacube.shape[0],
-            CDELT1*1000., CDELT2*1000., delta_lambda, CRVAL3, FUNITS, CRPIX3, CUNIT1,
+            CDELT1*1000., CDELT2*1000., delta_lambda, CRVAL3, BUNIT, CRPIX3, CUNIT1,
             CUNIT2, CUNIT3, CTYPE1, CTYPE2, CTYPE3, SPECRES]
     optionalkey_vals=[('Gridsize',grid),('Numgal',numgal),('xSpaxel',spaxels[0]),('ySpaxel',spaxels[1]),('Maxwave',MAXWAVE),\
                       ('Rpower', R), ('Redshift',z), ('ABMag', mag), ('2GalSep', pixsep),
