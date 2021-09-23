@@ -8,7 +8,7 @@ Last Edited: 23-09-21
 
 ## PURPOSE:
 
-This package produces simple input data cubes for simulations using the HSIM and NIFSIM pipelines for the ELT/HARMONI IFU. It can produce simple point or extended sources with template spectra or simple emission line profiles. The output FITS files are formatted to run through the pipelines.
+This package produces simple input data cubes for simulations using the HSIM pipeline for the ELT/HARMONI IFU. It can produce simple point or extended sources with template spectra or simple emission line profiles. The output FITS files are formatted to run through the pipelines.
 
 
 
