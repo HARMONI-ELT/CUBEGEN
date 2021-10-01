@@ -1,3 +1,11 @@
+# IMPORTANT WARNING
+### The FITS headers produced by CUBEGEN are adequate for HSIM3 simulations. However the magnitude and spectral normalization of the sources might not be as expected.
+
+<br/>
+<br/>
+<br/>
+
+
 # Input data cube generator
 
 Written by Simon Zieleniewski & Nicholas Zieleniewski
