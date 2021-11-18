@@ -61,17 +61,17 @@ if __name__=="__main__":
 #                 print 'Only '+str(mp.cpu_count())+' CPUs. Using '+str(mp.cpu_count())
 #                 nprocs = mp.cpu_count()
                 
-    odir = path_setup('../Generated_Cubes/')         
+    odir = path_setup('./Generated_Cubes/')         
     for o, a in optlist:
-        if o in ("-o", "--odit"):
+        if o in ("-o", "--odir"):
             if os.path.exists(a) and os.path.isdir(a):
-                odir = a
+                odir = a + "/"
             elif not os.path.exists(a):
                 print "OUTPUT DIRECTORY DOESN'T EXIST (OR IS NOT A DIRECTORY)! PLEASE CHOOSE AGAIN. EXITING"
                 sys.exit()
             
     for o, a in optlist:
-        if o in ("-c", "--cline") and len(args) != 20:
+        if o in ("-c", "--cline") and len(args) != 21:
             print""
             print 'COMMAND LINE USAGE'
             print ""
@@ -99,9 +99,9 @@ if __name__=="__main__":
             print '21. lineflux: Emission line total flux [erg/s/cm2]'
             print ""
             sys.exit()
-        elif o in ("-c", "--cline") and len(args) == 20:
+        elif o in ("-c", "--cline") and len(args) == 21:
             print args
-            name = str(srgs[0])
+            name = str(args[0])
             userspec = str(args[1])
             userres = float(args[2])
             start_lambda = float(args[3])
@@ -112,7 +112,7 @@ if __name__=="__main__":
             z = float(args[8])
             spectype = str(args[9])
             spaxel_scale = float(args[10])
-            fov = float(args[11])
+            fov = int(args[11])
             source_type = str(args[12])
             num_sources = int(args[13])
             source_sep = int(args[14])
@@ -122,6 +122,7 @@ if __name__=="__main__":
             linewave = float(args[18])
             linewidth = float(args[19])
             lineflux = float(args[20])
+            
             crpix3 = 1               #CRPIX1
             cunit1 = 'mas'           #CUNIT1
             cunit2 = 'mas'           #CUNIT2
@@ -135,10 +136,10 @@ if __name__=="__main__":
             grid = 1
 
             #Collect parameters into lists
-            headerdata = [spax*1.E-3, spax*1.E-3, start_lambda, end_lambda, R,
-            crpix3, cunit1, cunit2, cunit3, ctype1, ctype2, ctype3]
+            headerdata = [spaxel_scale*1.E-3, spaxel_scale*1.E-3, start_lambda, end_lambda, R,
+            funits, crpix3, cunit1, cunit2, cunit3, ctype1, ctype2, ctype3]
             modeldata = [num_sources, fov, fov, source_type, z, ABmag, band,
-            source_sep, brightness_offset, spectype, linewave, linewidth, lineflux, centre, grid,
+            source_sep, brightness_ratio, spectype, linewave, linewidth, lineflux, centre, grid,
             name, sersic_k, sersic_n]
             #Start main program
             main.main(headerdata, modeldata, userspec, userres, odir)

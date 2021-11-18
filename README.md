@@ -106,5 +106,5 @@ Use -c or --cline option to use command line.
 Use -o or --odir when using command line to specify output file directory. Default is /hsim/Output_cubes/
 
 An example command line entry:
-$ python cubegen.py -c -o New_datacube None 0 5000 7000 4000 20 V 0 Flat 1 500 Galaxy 2 100 1 4 1.5 0 0 0
+$ python2 cubegen.py -c -o Generated_Cubes New_datacube None 0 6000 7000 200 20 V 0 Flat 1 500 Galaxy 2 100 1 4 1.5 0 0 0
 
